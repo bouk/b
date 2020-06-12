@@ -1,0 +1,6 @@
+Host *
+  SetEnv TERM=xterm
+  UseKeychain yes
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_rsa
+  SendEnv LANG LC_*

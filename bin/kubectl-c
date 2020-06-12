@@ -1,0 +1,8 @@
+#!/bin/bash
+set -uo pipefail
+
+wanted="$(kubectl config get-contexts -o name | fzf-tmux --header="Select a context" --select-1 --query="$*")"
+if [ -z $wanted ]; then
+  exit 1
+fi
+kubectl config use-context "$wanted"

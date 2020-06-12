@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export GIT_WORK_TREE=$HOME/Library/Mobile\ Documents/com\~apple\~CloudDocs/Notities
+export GIT_DIR=$HOME/.notes-git
+
+git add --all
+git commit -m "Note sync $(date +"%Y-%m-%d %H:%M")"
+git push -u origin master

@@ -1,0 +1,38 @@
+#!/bin/bash
+set -e
+
+printerr() {
+  echo $* > /dev/stderr
+}
+
+TEMPFILE=$(mktemp)
+node=$(kubectl $* get nodes -o jsonpath="{range .items[*]}{.metadata.name}{\"\n\"}{end}" | fzf-tmux --header="Select a node" --select-1)
+kubectl $* get node "$node" >/dev/null
+printerr "Connecting to $node"
+
+POD="ssh-$node-$(head /dev/urandom | tr -dc a-z0-9 | head -c 13 ; echo '')"
+cat > $TEMPFILE <<YAML
+kind: Pod
+apiVersion: v1
+metadata:
+  name: $POD
+spec:
+  containers:
+    - name: inject
+      image: busybox
+      volumeMounts:
+      - mountPath: "/kubelet"
+        name: kubelet
+      command: [ "sleep", "1000000" ]
+  volumes:
+    - name: kubelet
+      hostPath:
+        path: /
+  nodeName: "$node"
+YAML
+
+kubectl $* create -f $TEMPFILE > /dev/null
+rm -f $TEMPFILE
+kubectl $* wait pods/$POD --for=condition=Ready > /dev/null
+kubectl $* exec -ti $POD -- chroot /kubelet /bin/bash -i
+kubectl $* delete pods/$POD --now > /dev/null &

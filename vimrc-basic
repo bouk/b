@@ -1,0 +1,54 @@
+"Plug Scripts-----------------------------
+set nocompatible
+let mapleader="," " leader
+
+filetype plugin indent on
+syntax enable
+set autoread
+set background=dark
+set backspace=indent,eol,start
+set completeopt=menuone,preview,noselect
+set display+=lastline
+set expandtab 
+set foldlevel=20
+set foldmethod=manual
+set hlsearch
+set ignorecase
+set incsearch
+set linebreak
+set nobackup
+set noswapfile
+set number
+set ruler
+set scrolloff=2
+set shiftwidth=2
+set showcmd
+set showmatch
+set showtabline=2
+set smartcase
+set softtabstop=2
+set splitbelow
+set splitright
+set t_Co=256  " 2000s plz
+set tabpagemax=50
+set tabstop=2
+set updatetime=1000
+set wildignore=*.pyc
+" fuck off
+set belloff=all
+nnoremap k gk
+nnoremap j gj
+noremap H ^
+noremap L $
+noremap <C-J> <C-W>j
+noremap <C-K> <C-W>k
+noremap <C-L> <C-W>l
+noremap <C-H> <C-W>h
+inoremap jk <esc>
+
+" Ctrl+Space sends a Nul character to the terminal. Ignore it.
+map  <Nul> <Nop>
+cmap <Nul> <Nop>
+imap <Nul> <Nop>
+nmap <Nul> <Nop>
+vmap <Nul> <Nop>

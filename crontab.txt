@@ -1,0 +1,1 @@
+* * * * * /Users/bouke/dotfiles/bin/sync-notes &> /dev/null
