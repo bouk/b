@@ -66,8 +66,7 @@ let
         -X github.com/concourse/concourse.Version=${version}
     '';
   };
-in
-  pkgs.buildEnv {
+  package = pkgs.buildEnv {
     name = "bouke";
     paths = with pkgs; [
       autoconf
@@ -121,4 +120,12 @@ in
       yarn
       youtube-dl
     ];
-  }
+  };
+in
+  if pkgs.lib.inNixShell
+  then
+    pkgs.mkShell {
+      buildInputs = [ package ];
+      shellHook = "exec ${pkgs.fish}/bin/fish";
+    }
+  else package

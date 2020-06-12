@@ -13,7 +13,7 @@ in
       fish
       bash
       zsh
-      (pkgs.callPackage ./packages.nix { })
+      (pkgs.callPackage ./. { })
     ];
     home-manager.users."${username}" = (import ./home.nix);
     users.users."${username}" = {
