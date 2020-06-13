@@ -1,3 +1,4 @@
+''
 [alias]
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
@@ -33,8 +34,8 @@
 
 [core]
 	# Use custom `.gitignore` and `.gitattributes`
-	excludesfile = ~/dotfiles/gitignore
-	attributesfile = ~/dotfiles/gitattributes
+	excludesfile = ${./gitignore}
+	attributesfile = ${./gitattributes}
 	# Treat spaces before tabs, lines that are indented with 8 or more spaces, and
 	# all kinds of trailing whitespace as an error.
 	# [default] trailing-space: looks for spaces at the end of a line
@@ -85,7 +86,6 @@
   insteadOf = "git://github.internal.digitalocean.com/"
   insteadOf = "https://github.internal.digitalocean.com/"
   insteadOf = "http://github.internal.digitalocean.com/"
-
 [push]
 	default = simple
 [pull]
@@ -103,16 +103,17 @@
 	name = Bouke van der Bijl
 	email = i@bou.ke
 [includeIf "gitdir:~/cthulhu/"]
-	path = ~/dotfiles/git/digitalocean
+	path = ${./git/digitalocean}
 [includeIf "gitdir:~/go/src/github.com/digitalocean-appsail/"]
-	path = ~/dotfiles/git/digitalocean
+	path = ${./git/digitalocean}
 [includeIf "gitdir:~/go/src/github.internal.digitalocean.com/"]
-	path = ~/dotfiles/git/digitalocean
+	path = ${./git/digitalocean}
 [includeIf "gitdir:~/go/src/github.com/digitalocean/"]
-	path = ~/dotfiles/git/digitalocean
+	path = ${./git/digitalocean}
 [includeIf "gitdir:~/src/github.com/digitalocean-appsail/"]
-	path = ~/dotfiles/git/digitalocean
+	path = ${./git/digitalocean}
 [includeIf "gitdir:~/src/github.internal.digitalocean.com/"]
-	path = ~/dotfiles/git/digitalocean
+	path = ${./git/digitalocean}
 [includeIf "gitdir:~/src/github.com/digitalocean/"]
-	path = ~/dotfiles/git/digitalocean
+	path = ${./git/digitalocean}
+''

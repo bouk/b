@@ -119,7 +119,7 @@ let
       shellcheck
       sqlite
       subversion
-      tmux
+      (pkgs.callPackage ./tmux.nix { })
       tparse
       tree
       wget

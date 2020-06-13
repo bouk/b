@@ -43,9 +43,8 @@ in
             source ${config.system.build.setEnvironment}
         end
       '';
-      "gitconfig" = { source = ./gitconfig; };
+      gitconfig = { text = (import ./gitconfig.nix); };
       "ssh/ssh_config" = { source = ./ssh_config; };
-      "tmux.conf" = { source = ./tmux.conf; };
     };
     users.users."${username}" = {
       home = "/Users/${username}";
