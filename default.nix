@@ -119,6 +119,7 @@ let
       xz
       yarn
       youtube-dl
+      (pkgs.callPackage ./vim.nix { })
     ];
   };
 in
