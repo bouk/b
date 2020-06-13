@@ -5,9 +5,6 @@ let
   world = (pkgs.callPackage ./. { });
 in
   {
-    imports = [
-      <home-manager/nix-darwin>
-    ];
     environment.darwinConfig = "$HOME/dotfiles/darwin.nix";
     environment.systemPackages = with pkgs; [
       (pkgs.callPackage ./alacritty.nix { })
@@ -15,7 +12,11 @@ in
       zsh
       world
     ];
-    home-manager.users."${username}" = (import ./home.nix);
+    environment.etc = {
+      "gitconfig" = { source = ./gitconfig; };
+      "ssh/ssh_config" = { source = ./ssh_config; };
+      "tmux.conf" = { source = ./tmux.conf; };
+    };
     users.users."${username}" = {
       home = "/Users/${username}";
       description = "Bouke van der Bijl";
