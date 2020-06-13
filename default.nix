@@ -66,13 +66,18 @@ let
         -X github.com/concourse/concourse.Version=${version}
     '';
   };
+
+  boukeFish = (pkgs.callPackage ./fish.nix { });
+
   package = pkgs.buildEnv {
     name = "bouke";
+    passthru = { shellPath = boukeFish.shellPath; };
     paths = with pkgs; [
       autoconf
       automake
       awscli
       bat
+      boukeFish
       cargo
       cloudflare-wrangler
       cmake
@@ -82,6 +87,7 @@ let
       fd
       findutils
       flyOverride
+      fzf
       gdb
       gitAndTools.hub
       gnused
@@ -113,6 +119,7 @@ let
       shellcheck
       sqlite
       subversion
+      tmux
       tparse
       tree
       wget
@@ -127,6 +134,6 @@ in
   then
     pkgs.mkShell {
       buildInputs = [ package ];
-      shellHook = "exec ${pkgs.fish}/bin/fish";
+      shellHook = "exec ${package}/bin/fish";
     }
   else package

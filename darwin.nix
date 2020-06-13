@@ -2,6 +2,7 @@
 
 let
   username = "bouke";
+  world = (pkgs.callPackage ./. { });
 in
   {
     imports = [
@@ -9,20 +10,17 @@ in
     ];
     environment.darwinConfig = "$HOME/dotfiles/darwin.nix";
     environment.systemPackages = with pkgs; [
-      alacritty
-      fish
+      (pkgs.callPackage ./alacritty.nix { })
       bash
       zsh
-      (pkgs.callPackage ./. { })
+      world
     ];
     home-manager.users."${username}" = (import ./home.nix);
     users.users."${username}" = {
       home = "/Users/${username}";
       description = "Bouke van der Bijl";
-      shell = pkgs.fish;
     };
-    environment.shells = with pkgs; [ bashInteractive fish zsh ];
-    programs.fish.enable = true;
+    environment.shells = with pkgs; [ bashInteractive world zsh ];
     system.stateVersion = 4;
     system.defaults.dock.autohide = true;
     services.nix-daemon.enable = false;
