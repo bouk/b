@@ -134,6 +134,6 @@ in
   then
     pkgs.mkShell {
       buildInputs = [ package ];
-      shellHook = "exec ${package}/bin/fish";
+      shellHook = "exec ${package}${package.shellPath}";
     }
   else package

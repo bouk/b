@@ -63,7 +63,7 @@ in
     paths = [ pkgs.fish ];
     buildInputs = [ pkgs.makeWrapper ];
     passthru = {
-      shellPath = "/bin/fish";
+      shellPath = pkgs.fish.shellPath;
     };
     postBuild = ''
       bin="$(readlink -v --canonicalize-existing "$out/bin/fish")"
