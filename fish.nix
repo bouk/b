@@ -50,8 +50,6 @@ set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx VAULT_USERNAME bvanderbijl
 set -gx WGETRC ${./wgetrc}
 set -gx ZK_DIR "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Notities/Zettelkasten"
-# TODO: remove
-set -pgx PATH $HOME/.nix-profile/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin
 
 function list_after_cd --on-variable PWD
   ls
