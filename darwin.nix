@@ -1,6 +1,20 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 
 let
+  pkgs = import <nixpkgs> {
+    overlays = [
+      (self: super: {
+        go = super.go.overrideAttrs (oldAttrs: {
+          buildInputs = oldAttrs.buildInputs ++ [ self.makeWrapper ];
+          postInstall = with self.darwin.apple_sdk.frameworks; ''
+            wrapProgram $out/share/go/bin/go \
+              --suffix CGO_CFLAGS  ' ' '-iframework ${CoreFoundation}/Library/Frameworks -iframework ${Security}/Library/Frameworks' \
+              --suffix CGO_LDFLAGS ' ' '-F${CoreFoundation}/Library/Frameworks -F${Security}/Library/Frameworks'
+          '';
+        });
+      })
+    ];
+  };
   cfge = config.environment;
 
   babelfish = pkgs.buildGoModule rec {

@@ -67,68 +67,69 @@ let
     '';
   };
 
-  boukeFish = (pkgs.callPackage ./fish.nix { });
+  boukeBin = pkgs.runCommand "bouke-bin" { } ''
+    mkdir $out
+    ln -sf ${./bin} $out/bin
+  '';
 
-  package = pkgs.buildEnv {
-    name = "bouke";
-    passthru = { shellPath = boukeFish.shellPath; };
-    paths = with pkgs; [
-      autoconf
-      automake
-      awscli
-      bat
-      boukeFish
-      cargo
-      cloudflare-wrangler
-      cmake
-      coreutils
-      curl
-      doctl
-      fd
-      findutils
-      flyOverride
-      fzf
-      gdb
-      gitAndTools.hub
-      gnused
-      go
-      golangci-lint
-      gopls # Needed until vim-go package requires it properly
-      haskellPackages.cabal-install
-      haskellPackages.ghc
-      htop
-      humanlog
-      ifacemaker
-      imagemagick
-      jq
-      kind
-      kubectl
-      luajit
-      mockgen
-      mysql80
-      nmap
-      nodePackages.node2nix
-      nodePackages.typescript
-      nodejs
-      postgresql
-      protobuf
-      python
-      ripgrep
-      ruby
-      rustc
-      shellcheck
-      sqlite
-      subversion
-      (pkgs.callPackage ./tmux.nix { })
-      tparse
-      tree
-      wget
-      xz
-      yarn
-      youtube-dl
-      (pkgs.callPackage ./vim.nix { })
-    ];
-  };
+  paths = with pkgs; [
+    (pkgs.callPackage ./tmux.nix { })
+    (pkgs.callPackage ./vim.nix { })
+    autoconf
+    automake
+    awscli
+    bat
+    boukeBin
+    cargo
+    cmake
+    coreutils
+    curl
+    doctl
+    fd
+    findutils
+    flyOverride
+    fzf
+    gdb
+    gitAndTools.hub
+    gnused
+    go
+    golangci-lint
+    gopls # Needed until vim-go package requires it properly
+    haskellPackages.cabal-install
+    haskellPackages.ghc
+    htop
+    humanlog
+    ifacemaker
+    imagemagick
+    jq
+    kind
+    kubectl
+    luajit
+    mockgen
+    mysql80
+    nmap
+    nodePackages.node2nix
+    nodePackages.typescript
+    nodejs
+    postgresql
+    protobuf
+    python
+    ripgrep
+    ruby
+    rustc
+    shellcheck
+    sqlite
+    subversion
+    tparse
+    tree
+    wget
+    cloudflare-wrangler
+    xz
+    yarn
+    youtube-dl
+  ];
+  boukeFish = (pkgs.callPackage ./fish.nix { extraConfig = "set -gxp PATH ${pkgs.lib.makeBinPath paths}"; });
+  package = boukeFish;
 in
   if pkgs.lib.inNixShell
   then

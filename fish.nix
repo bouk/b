@@ -1,6 +1,7 @@
-{ pkgs ? import <nixpkgs> { }, ... }:
+{ extraConfig ? "", pkgs ? import <nixpkgs> { }, ... }:
 let
   fishConfig = pkgs.writeText "config.fish" ''
+${extraConfig}
 function fish_user_key_bindings
   source ${pkgs.fzf}/share/fzf/key-bindings.fish && fzf_key_bindings
 end
@@ -50,6 +51,7 @@ set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx VAULT_USERNAME bvanderbijl
 set -gx WGETRC ${./wgetrc}
 set -gx ZK_DIR "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Notities/Zettelkasten"
+set -gxp PATH $HOME/go/bin
 
 function list_after_cd --on-variable PWD
   ls
@@ -66,6 +68,6 @@ in
     postBuild = ''
       bin="$(readlink -v --canonicalize-existing "$out/bin/fish")"
       rm "$out/bin/fish"
-      makeWrapper $bin "$out/bin/fish" --add-flags "--init-command \"source ${fishConfig}\""
+      makeWrapper $bin "$out/bin/fish" --add-flags "--init-command \"set -gxp PATH $out/bin/fish; source ${fishConfig}\""
     '';
   }
