@@ -47,7 +47,6 @@ let
       shell = world;
     };
     environment.shells = with pkgs; [ bashInteractive world zsh ];
-    environment.variables.SHELL = toShellPath world;
     system.stateVersion = 4;
     system.defaults.dock.autohide = true;
     services.nix-daemon.enable = false;
@@ -60,6 +59,7 @@ let
     system.activationScripts.postActivation.text = ''
       dscl . -create '/Users/${username}' UserShell '${toShellPath world}'
     '';
+    environment.pathsToLink = ["/"];
     environment.darwinConfig = "$HOME/dotfiles/darwin.nix";
     environment.systemPackages = with pkgs; [
       (pkgs.callPackage ./alacritty.nix { })
@@ -67,6 +67,10 @@ let
       zsh
       world
     ];
+    environment.variables = {
+      EDITOR = "vim";
+      SHELL = (toShellPath world);
+    };
     environment.etc = {
       gitconfig.text = import ./gitconfig.nix;
       "ssh/ssh_config".source = ./ssh_config;

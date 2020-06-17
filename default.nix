@@ -123,7 +123,7 @@ let
     tparse
     tree
     wget
-    cloudflare-wrangler
+    wrangler
     xz
     yarn
     youtube-dl
@@ -134,7 +134,6 @@ in
   if pkgs.lib.inNixShell
   then
     pkgs.mkShell {
-      buildInputs = [ package ];
-      shellHook = "exec ${package}${package.shellPath}";
+      shellHook = "${package}${package.shellPath}; exit $?";
     }
   else package

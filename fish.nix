@@ -68,6 +68,6 @@ in
     postBuild = ''
       bin="$(readlink -v --canonicalize-existing "$out/bin/fish")"
       rm "$out/bin/fish"
-      makeWrapper $bin "$out/bin/fish" --add-flags "--init-command \"set -gxp PATH $out/bin/fish; source ${fishConfig}\""
+      makeWrapper $bin "$out/bin/fish" --add-flags "--init-command \"set -gxp PATH $out/bin; source ${fishConfig}\""
     '';
   }
