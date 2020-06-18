@@ -1,20 +1,6 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 let
-  pkgs = import <nixpkgs> {
-    overlays = [
-      (self: super: {
-        go = super.go.overrideAttrs (oldAttrs: {
-          buildInputs = oldAttrs.buildInputs ++ [ self.makeWrapper ];
-          postInstall = with self.darwin.apple_sdk.frameworks; ''
-            wrapProgram $out/share/go/bin/go \
-              --suffix CGO_CFLAGS  ' ' '-iframework ${CoreFoundation}/Library/Frameworks -iframework ${Security}/Library/Frameworks' \
-              --suffix CGO_LDFLAGS ' ' '-F${CoreFoundation}/Library/Frameworks -F${Security}/Library/Frameworks'
-          '';
-        });
-      })
-    ];
-  };
   cfge = config.environment;
 
   babelfish = pkgs.buildGoModule rec {
@@ -67,8 +53,10 @@ let
       zsh
       world
     ];
-    environment.variables = {
+    environment.variables = with pkgs.darwin.apple_sdk.frameworks; {
       EDITOR = "vim";
+      CGO_CFLAGS = "-iframework ${CoreFoundation}/Library/Frameworks -iframework ${Security}/Library/Frameworks";
+      CGO_LDFLAGS = "-F${CoreFoundation}/Library/Frameworks -F${Security}/Library/Frameworks";
       SHELL = (toShellPath world);
     };
     environment.etc = {
