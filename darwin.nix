@@ -46,7 +46,7 @@ let
       dscl . -create '/Users/${username}' UserShell '${toShellPath world}'
     '';
     environment.pathsToLink = ["/"];
-    environment.darwinConfig = "$HOME/dotfiles/darwin.nix";
+    environment.darwinConfig = toString <darwin-config>;
     environment.systemPackages = with pkgs; [
       (pkgs.callPackage ./alacritty.nix { })
       bashInteractive
