@@ -16,8 +16,6 @@ let
     '';
   };
   alacrittyConfig = pkgs.writeText "alacritty.yml" ''
-    env:
-      TERM: alacritty
     window:
       dimensions:
         columns: 80
@@ -25,16 +23,21 @@ let
       padding:
         x: 0
         y: 0
+      decorations: buttonless
+      startup_mode: Fullscreen
     font:
       normal:
-        family: Menlo #Noto Sans Mono # should be "Menlo" or something on macOS.
+        family: Iosevka Fixed
         style: Regular
       bold:
-        family: Menlo #Noto Sans Mono # should be "Menlo" or something on macOS.
+        family: Iosevka Fixed
         style: Bold
       italic:
-        family: Menlo #Noto Sans Mono # should be "Menlo" or something on macOS.
+        family: Iosevka Fixed
         style: Italic
+      bold_italic:
+        family: Iosevka Fixed
+        style: Bold Italic
       size: 16.0
       offset:
         x: 0

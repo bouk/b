@@ -55,8 +55,7 @@ let
     ];
     environment.variables = with pkgs.darwin.apple_sdk.frameworks; {
       EDITOR = "vim";
-      CGO_CFLAGS = "-iframework ${CoreFoundation}/Library/Frameworks -iframework ${Security}/Library/Frameworks";
-      CGO_LDFLAGS = "-F${CoreFoundation}/Library/Frameworks -F${Security}/Library/Frameworks";
+      CC = "clang";
       SHELL = (toShellPath world);
     };
     environment.etc = {

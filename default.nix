@@ -8,6 +8,7 @@ let
     ln -sf ${./bin} $out/bin
   '';
 
+  ruby = pkgs.ruby_2_7;
   paths = with pkgs; [
     (pkgs.callPackage ./tmux.nix { })
     (pkgs.callPackage ./vim.nix { })
@@ -17,7 +18,6 @@ let
     bat
     boukeBin
     cargo
-    clang
     cmake
     coreutils
     curl
@@ -55,7 +55,6 @@ let
     protobuf
     python
     ripgrep
-    ruby
     rustc
     shellcheck
     sqlite
@@ -68,7 +67,7 @@ let
     yarn
     youtube-dl
     zlib
-  ];
+  ] ++ [ ruby ];
   env = pkgs.buildEnv {
     name = "bouke";
     paths = paths;
@@ -86,7 +85,7 @@ let
     extraConfig = ''
       set -gxp CPATH ${pkgs.lib.makeSearchPathOutput "dev" "include" [ env ] }
       set -gxp LIBRARY_PATH ${pkgs.lib.makeLibraryPath [ env ] }
-      set -gxp PATH ${pkgs.lib.makeBinPath [ env ] }
+      set -gxp PATH $HOME/.gem/ruby/${ruby.version.libDir}/bin ${pkgs.lib.makeBinPath [ env ] }
       '';
   });
   package = boukeFish;

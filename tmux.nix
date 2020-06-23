@@ -6,7 +6,7 @@ let
     set -g prefix C-f
     set -gs escape-time 0
     set -g history-limit 10000
-    bind r source-file ~/.tmux.conf # reload
+    set -g renumber-windows on
     bind s split-window -v -c '#{pane_current_path}'
     bind v split-window -h -c '#{pane_current_path}'
     bind c new-window -c '#{pane_current_path}'
@@ -24,7 +24,16 @@ let
     bind-key -r M-h resize-pane -L 20
     bind-key -r M-l resize-pane -R 20
 
-    set -g status-right '#h'
+    ${
+      if builtins.match ".*darwin" builtins.currentSystem != null then
+      ''
+      set -g status-right ' #h'
+      ''
+      else
+      ''
+      set -g status-right '#h'
+      ''
+    }
     set -g status-left ""
     set -g status-bg green
     set-option -ga update-environment ' ZK_DIR'
