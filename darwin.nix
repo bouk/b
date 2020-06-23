@@ -25,7 +25,15 @@ let
   toShellPath = v: if lib.types.shellPackage.check v then "/run/current-system/sw${v.shellPath}" else v; 
 
   username = "bouke";
-  world = (pkgs.callPackage ./. { });
+  world = (pkgs.callPackage ./. {
+    overlays = [
+      (self: super: {
+        go = super.go.overrideAttrs(oldAttrs: {
+          CC_FOR_TARGET = "clang";
+        });
+      })
+    ];
+  });
   mod = {
     users.users."${username}" = {
       home = "/Users/${username}";
@@ -55,7 +63,6 @@ let
     ];
     environment.variables = with pkgs.darwin.apple_sdk.frameworks; {
       EDITOR = "vim";
-      CC = "clang";
       SHELL = (toShellPath world);
     };
     environment.etc = {

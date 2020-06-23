@@ -1,7 +1,7 @@
-{ ... }:
+{ overlays ? [], ... }:
 
 let
-  pkgs = import <nixpkgs> { overlays = [ (import ./overlays) ]; };
+  pkgs = import <nixpkgs> { overlays = overlays ++ [ (import ./overlays) ]; };
 
   boukeBin = pkgs.runCommand "bouke-bin" { } ''
     mkdir $out
