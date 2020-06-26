@@ -89,6 +89,7 @@ augroup vimrc
   autocmd FileType markdown setlocal spell
   autocmd FileType markdown setlocal linebreak " wrap on words, not characters
   autocmd FileType markdown nmap <buffer> ]] <Plug>Markdown_MoveToNextHeader zt
+  autocmd FileType markdown setlocal statusline=%{wordcount().words}\ words
   autocmd filetype crontab setlocal nobackup nowritebackup
   autocmd BufNewFile,BufRead *.ejson set filetype=json
   autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif

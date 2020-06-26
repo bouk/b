@@ -1,20 +1,6 @@
 { pkgs ? import <nixpkgs> { }, ... }:
 let
   tmux = (pkgs.callPackage ./tmux.nix { });
-  pkg = pkgs.symlinkJoin {
-    name = "alacritty-configured";
-    paths = [ pkgs.alacritty ];
-    buildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      bin="$(readlink -v --canonicalize-existing "$out/bin/alacritty")"
-      rm "$out/bin/alacritty"
-      makeWrapper $bin "$out/bin/alacritty" --add-flags "--config-file ${alacrittyConfig}"
-      ${pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
-      rm "$out/Applications/Alacritty.app/Contents/MacOS/alacritty"
-      ln -sn ../../../../bin/alacritty $out/Applications/Alacritty.app/Contents/MacOS/alacritty
-      ''}
-    '';
-  };
   alacrittyConfig = pkgs.writeText "alacritty.yml" ''
     window:
       dimensions:
@@ -211,4 +197,4 @@ let
       - { key: F12,      mods: Super,   chars: "\x1b[24;3~"                  }
     '';
 in
-  pkg
+  alacrittyConfig

@@ -41,9 +41,6 @@ let
     jq
     kind
     kubectl
-    libiconv
-    libxml2
-    libxslt
     luajit
     mockgen
     mysql80
@@ -83,8 +80,8 @@ let
   # When I build stuff using the tools in my setup, it can just be a mess and that's fine.
   boukeFish = (pkgs.callPackage ./fish.nix {
     extraConfig = ''
-      set -gxp CPATH ${pkgs.lib.makeSearchPathOutput "dev" "include" [ env ] }
-      set -gxp LIBRARY_PATH ${pkgs.lib.makeLibraryPath [ env ] }
+      set -gxp CPATH ${pkgs.lib.makeSearchPathOutput "dev" "include" [ pkgs.libxml2 pkgs.libxslt ] }
+      set -gxp LIBRARY_PATH ${pkgs.lib.makeLibraryPath [ pkgs.libxml2 pkgs.libxslt ] }
       set -gxp PATH $HOME/.gem/ruby/${ruby.version.libDir}/bin ${pkgs.lib.makeBinPath [ env ] }
       '';
   });

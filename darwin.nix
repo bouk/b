@@ -56,7 +56,6 @@ let
     environment.pathsToLink = ["/"];
     environment.darwinConfig = toString <darwin-config>;
     environment.systemPackages = with pkgs; [
-      (pkgs.callPackage ./alacritty.nix { })
       bashInteractive
       zsh
       world
