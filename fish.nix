@@ -43,7 +43,7 @@ set -gx INPUTRC ${pkgs.writeText "inputrc" ''
   set completion-ignore-case on
   set show-all-if-ambiguous on
 ''}
-set -gx CTHULHU_DIR $HOME/cthulhu
+set -gx CTHULHU_DIR $HOME/src/github.internal.digitalocean.com/digitalocean/cthulhu
 set -gx EDITOR vim
 set -gx EJSON_KEYDIR $HOME/.ejson_keys
 set -gx FZF_DEFAULT_COMMAND 'rg --files'

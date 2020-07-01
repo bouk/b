@@ -49,6 +49,7 @@ let
       maxJobs = 4;
       buildCores = 4;
     };
+    nixpkgs.config.allowUnfree = true;
     # Set the shell
     system.activationScripts.postActivation.text = ''
       dscl . -create '/Users/${username}' UserShell '${toShellPath world}'
@@ -57,6 +58,7 @@ let
     environment.darwinConfig = toString <darwin-config>;
     environment.systemPackages = with pkgs; [
       bashInteractive
+      cloudflared
       zsh
       world
     ];

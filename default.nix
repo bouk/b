@@ -29,6 +29,7 @@ let
     gdb
     gitAndTools.hub
     gnused
+    gnutar
     go
     golangci-lint
     gopls # Needed until vim-go package requires it properly
@@ -53,6 +54,7 @@ let
     python
     ripgrep
     rustc
+    s3cmd
     shellcheck
     sqlite
     subversion
