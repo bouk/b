@@ -7,6 +7,7 @@ pkgs.wrapNeovim pkgs.neovim-unwrapped {
     denite-nvim
     deoplete-clang
     deoplete-nvim
+    ayu-vim
     editorconfig-vim
     fzf-vim
     nerdtree
