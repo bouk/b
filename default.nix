@@ -15,6 +15,7 @@ let
     autoconf
     automake
     awscli
+    axel
     bat
     boukeBin
     cargo
@@ -49,6 +50,7 @@ let
     nodePackages.node2nix
     nodePackages.typescript
     nodejs
+    patchelf
     postgresql
     protobuf
     python

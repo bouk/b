@@ -13,16 +13,16 @@ let
       startup_mode: Fullscreen
     font:
       normal:
-        family: Iosevka Fixed
+        family: PragmataPro
         style: Regular
       bold:
-        family: Iosevka Fixed
+        family: PragmataPro
         style: Bold
       italic:
-        family: Iosevka Fixed
+        family: PragmataPro
         style: Italic
       bold_italic:
-        family: Iosevka Fixed
+        family: PragmataPro
         style: Bold Italic
       size: 16.0
       offset:

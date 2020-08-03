@@ -4,17 +4,19 @@ pkgs.wrapNeovim pkgs.neovim-unwrapped {
   vimAlias = true;
   configure.customRC = builtins.readFile ./vimrc;
   configure.packages.bouke.start = with pkgs.vimPlugins; [
-    vim-fish
-    deoplete-nvim
-    deoplete-clang
     denite-nvim
+    deoplete-clang
+    deoplete-nvim
     editorconfig-vim
     fzf-vim
     nerdtree
+    swift-vim
+    vim-fish
     vim-fugitive
     vim-gitgutter
     vim-go
     vim-nix
+    vim-protobuf
     yats-vim
     (let
       nvim-typescript = (pkgs.vimUtils.buildVimPluginFrom2Nix {

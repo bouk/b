@@ -47,6 +47,7 @@ self: super:
       sha256 = "1d5fs1sk61ksxbs5nyd3l4238jy2wxn0c3h8aamic5sy3mwr7gnv";
     };
     subPackages = [ "cmd/humanlog" ];
+    vendorSha256 = null;
   };
 
   fly = self.buildGoModule rec {
