@@ -25,10 +25,12 @@ let
     doctl
     fd
     findutils
+    ffmpeg
     fly
     fzf
     gdb
     gitAndTools.hub
+    p7zip
     gnused
     gnutar
     go

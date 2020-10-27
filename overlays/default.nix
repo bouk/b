@@ -2,14 +2,15 @@ self: super:
 {
   mockgen = self.buildGoModule rec {
     pname = "mockgen";
-    version = "1.4.3";
+    version = "1.4.4";
     src = self.fetchFromGitHub {
       owner = "golang";
       repo = "mock";
       rev = "v${version}";
-      sha256 = "1p37xnja1dgq5ykx24n7wincwz2gahjh71b95p8vpw7ss2g8j8wx";
+      sha256 = "1lj0dvd6div4jaq1s0afpwqaq9ah8cxhkq93wii2ably1xmp2l0a";
     };
-    vendorSha256 = "1kpiij3pimwv3gn28rbrdvlw9q5c76lzw6zpa12q6pgck76acdw4";
+    vendorSha256 = "1md4cg1zzhc276sc7i2v0xvg5pf6gzy0n9ga2g1lx3d572igq1wy";
+    doCheck = false;
     subPackages = [ "mockgen" ];
   };
 
@@ -52,18 +53,34 @@ self: super:
 
   fly = self.buildGoModule rec {
     pname = "fly";
-    version = "5.8.0";
+    version = "6.3.0";
     src = self.fetchFromGitHub {
       owner = "concourse";
       repo = "concourse";
       rev = "v${version}";
-      sha256 = "0ji3jya4b2b4l6dlvydh3k2jfh6kkhii23d6rmi49ypydhn1qmgj";
+      sha256 = "006qkg661hzbc2gpcnpxm09bp1kbb98y0bgdr49bjlnapcmdgr1b";
     };
-    vendorSha256 = "1zzb7n54hnl99lsgln9pib2anmzk5zmixga5x68jyrng91axjifb";
+    vendorSha256 = "03az7l9rf2syw837zliny82xhkqlad16z0vfcg5h21m3bhz6v6jy";
     subPackages = [ "fly" ];
     buildFlagsArray = ''
       -ldflags=
         -X github.com/concourse/concourse.Version=${version}
     '';
+  };
+
+  gopls = self.buildGoModule rec {
+    pname = "gopls";
+    version = "0.5.1";
+
+    src = self.fetchgit {
+      rev = "gopls/v${version}";
+      url = "https://go.googlesource.com/tools";
+      sha256 = "1vnidc8kaisdyprylsibddpdksm84c6qr528768yvi93crdmddls";
+    };
+
+    modRoot = "gopls";
+    vendorSha256 = "048qs6ygav8al3sz9vwf6fqaahkr8wr3dj1yd2jhr7c5h30n4rs2";
+
+    doCheck = false;
   };
 }
