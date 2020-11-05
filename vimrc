@@ -4,7 +4,9 @@ let mapleader="," " leader
 let g:go_decls_mode = 'fzf'
 let g:go_rename_command = 'gopls'
 let g:go_gopls_complete_unimported = 0
-let g:go_code_completion_enabled = 1
+let g:go_gopls_enabled = 0
+let g:go_def_mapping_enabled = 0
+let g:go_code_completion_enabled = 0
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 let g:deoplete#sources#markdown_links#name_pattern='^(\d{12} )?(?P<name>.*?)(?(1)\.[a-z]+)$'
@@ -97,6 +99,24 @@ augroup vimrc
   autocmd FileType go nmap <buffer> <leader>t  <Plug>(go-test)
   autocmd FileType go nmap <buffer> <leader>p  :GoDeclsDir<CR>
   autocmd FileType typescript,typescriptreact nnoremap <buffer> <silent> gd :TSDef<cr>
+augroup END
+
+function SetLSPShortcuts()
+  nnoremap gd :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+  nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+  nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+  nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+  nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+  nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+  nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+  nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+endfunction()
+
+augroup LSP
+  autocmd!
+  autocmd FileType go,cpp,c call SetLSPShortcuts()
 augroup END
 
 " Remap tab to ctrl+N when doing autocomplete

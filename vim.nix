@@ -6,6 +6,7 @@ pkgs.wrapNeovim pkgs.neovim-unwrapped {
   configure.packages.bouke.start = with pkgs.vimPlugins; [
     denite-nvim
     deoplete-clang
+    LanguageClient-neovim
     deoplete-nvim
     ayu-vim
     editorconfig-vim

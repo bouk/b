@@ -67,20 +67,4 @@ self: super:
         -X github.com/concourse/concourse.Version=${version}
     '';
   };
-
-  gopls = self.buildGoModule rec {
-    pname = "gopls";
-    version = "0.5.1";
-
-    src = self.fetchgit {
-      rev = "gopls/v${version}";
-      url = "https://go.googlesource.com/tools";
-      sha256 = "1vnidc8kaisdyprylsibddpdksm84c6qr528768yvi93crdmddls";
-    };
-
-    modRoot = "gopls";
-    vendorSha256 = "048qs6ygav8al3sz9vwf6fqaahkr8wr3dj1yd2jhr7c5h30n4rs2";
-
-    doCheck = false;
-  };
 }

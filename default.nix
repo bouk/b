@@ -17,11 +17,13 @@ let
     awscli
     axel
     bat
+    bazel
     boukeBin
     cargo
     cmake
     coreutils
     curl
+    dbmate
     doctl
     fd
     findutils
