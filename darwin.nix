@@ -50,10 +50,18 @@ let
       buildCores = 4;
     };
     nixpkgs.config.allowUnfree = true;
-    # Set the shell
-    system.activationScripts.postActivation.text = ''
-      dscl . -create '/Users/${username}' UserShell '${toShellPath world}'
-    '';
+    system.activationScripts = {
+      # Remove built-in shells and ssh config
+      preActivation.text = ''
+        echo "deleting /etc/shells and /etc/ssh/ssh_config" >&2
+        rm -f /etc/shells
+        rm -f /etc/ssh/ssh_config
+      '';
+      # Set the shell
+      postActivation.text = ''
+        dscl . -create '/Users/${username}' UserShell '${toShellPath world}'
+      '';
+    };
     environment.pathsToLink = ["/"];
     environment.darwinConfig = toString <darwin-config>;
     environment.systemPackages = with pkgs; [
