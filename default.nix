@@ -64,6 +64,7 @@ let
     shellcheck
     sqlite
     subversion
+    terraform_0_13
     tparse
     tree
     wget

@@ -19,6 +19,7 @@ pkgs.wrapNeovim pkgs.neovim-unwrapped {
     vim-go
     vim-nix
     vim-protobuf
+    vim-terraform
     yats-vim
     (let
       nvim-typescript = (pkgs.vimUtils.buildVimPluginFrom2Nix {
