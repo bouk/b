@@ -43,7 +43,6 @@ set -gx INPUTRC ${pkgs.writeText "inputrc" ''
   set completion-ignore-case on
   set show-all-if-ambiguous on
 ''}
-set -gx CTHULHU_DIR $HOME/src/github.internal.digitalocean.com/digitalocean/cthulhu
 set -gx EDITOR vim
 set -gx EJSON_KEYDIR $HOME/.ejson_keys
 set -gx FZF_DEFAULT_COMMAND 'rg --files'
@@ -51,7 +50,7 @@ set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx VAULT_USERNAME bvanderbijl
 set -gx WGETRC ${./wgetrc}
 set -gx ZK_DIR "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Notities/Zettelkasten"
-set -gxp PATH $HOME/go/bin
+set -gxp PATH $HOME/go/bin $HOME/.local/opt/flutter/bin $HOME/.pub-cache/bin
 
 function list_after_cd --on-variable PWD
   ls

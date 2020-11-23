@@ -32,6 +32,7 @@ let
     fzf
     gdb
     gitAndTools.hub
+    google-cloud-sdk
     p7zip
     gnused
     gnutar
@@ -55,7 +56,7 @@ let
     nodePackages.typescript
     nodejs
     patchelf
-    postgresql
+    postgresql_12
     protobuf
     python
     ripgrep

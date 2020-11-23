@@ -55,7 +55,7 @@ noremap H ^
 noremap L $
 noremap <leader>n :NERDTreeToggle<CR>
 noremap <leader>m :NERDTreeFind<CR>
-command! -bang BrowseProjects call fzf#run(fzf#wrap({'source':'command ls -d -1 ~/dotfiles ~/code/* ~/src/{github.internal.digitalocean.com/digitalocean/,}cthulhu/docode/src/do/teams/{compute,paas}/* ~/src/{bou.ke,k8s.io,github{.internal.digitalocean,}.com/*}/* 2>/dev/null', 'options':'--tiebreak=length,begin,end'}))
+command! -bang BrowseProjects call fzf#run(fzf#wrap({'source':'command ls -d -1 ~/dotfiles ~/code/* ~/src/{bou.ke,k8s.io,github.com/*}/* 2>/dev/null', 'options':'--tiebreak=length,begin,end'}))
 noremap <leader>c :BrowseProjects<CR>
 let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls', 'serve'],

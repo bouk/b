@@ -76,16 +76,10 @@
 	insteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
-[url "git@github.internal.digitalocean.com:"]
-  insteadOf = "do:"
 [url "git@github.com:bouk"]
 	insteadof = https://github.com/bouk
 [url "git@bitbucket.org:"]
   insteadOf = "bit:"
-[url "git@github.internal.digitalocean.com:"]
-  insteadOf = "git://github.internal.digitalocean.com/"
-  insteadOf = "https://github.internal.digitalocean.com/"
-  insteadOf = "http://github.internal.digitalocean.com/"
 [push]
 	default = simple
 [pull]
@@ -97,23 +91,9 @@
 	verbose = true
 [diff]
 	compactionHeuristic = true
-[hub]
-	host = github.internal.digitalocean.com
 [user]
 	name = Bouke van der Bijl
 	email = i@bou.ke
-[includeIf "gitdir:~/cthulhu/"]
-	path = ${./git/digitalocean}
-[includeIf "gitdir:~/go/src/github.com/digitalocean-appsail/"]
-	path = ${./git/digitalocean}
-[includeIf "gitdir:~/go/src/github.internal.digitalocean.com/"]
-	path = ${./git/digitalocean}
-[includeIf "gitdir:~/go/src/github.com/digitalocean/"]
-	path = ${./git/digitalocean}
-[includeIf "gitdir:~/src/github.com/digitalocean-appsail/"]
-	path = ${./git/digitalocean}
-[includeIf "gitdir:~/src/github.internal.digitalocean.com/"]
-	path = ${./git/digitalocean}
-[includeIf "gitdir:~/src/github.com/digitalocean/"]
-	path = ${./git/digitalocean}
+[includeIf "gitdir:~/src/github.com/cheddar-me/"]
+	path = ${./git/cheddar}
 ''
