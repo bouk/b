@@ -1,7 +1,8 @@
 { overlays ? [], ... }:
 
 let
-  pkgs = import <nixpkgs> { overlays = overlays ++ [ (import ./overlays) ]; };
+  pkgs = import <nixpkgs> { };
+  pkgs-unstable = import <nixpkgs-unstable> { };
 
   boukeBin = pkgs.runCommand "bouke-bin" { } ''
     mkdir $out
@@ -23,12 +24,12 @@ let
     cmake
     coreutils
     curl
-    dbmate
+    # dbmate
     doctl
+    ejson
     fd
     findutils
     ffmpeg
-    fly
     fzf
     gdb
     gitAndTools.hub
@@ -39,11 +40,10 @@ let
     go
     golangci-lint
     gopls # Needed until vim-go package requires it properly
-    haskellPackages.cabal-install
-    haskellPackages.ghc
+    # haskellPackages.cabal-install
+    # haskellPackages.ghc
     htop
-    humanlog
-    ifacemaker
+    pkgs-unstable.hugo
     imagemagick
     jq
     kind
@@ -55,8 +55,7 @@ let
     nodePackages.node2nix
     nodePackages.typescript
     nodejs
-    patchelf
-    postgresql_12
+    pkgs-unstable.postgresql_13
     protobuf
     python
     ripgrep
@@ -66,7 +65,6 @@ let
     sqlite
     subversion
     terraform_0_13
-    tparse
     tree
     wget
     wrangler
