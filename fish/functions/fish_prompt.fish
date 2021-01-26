@@ -14,5 +14,5 @@ function fish_prompt --description 'Write out the prompt'
             set suffix ''
     end
 
-    echo -n -s (set_color $color_cwd) (prompt_pwd) (set_color yellow) (command git branch 2> /dev/null| string replace -f -r '^\* \(?([^\)]*)\)?$' ' ($1)') (set_color normal) "$suffix "
+    echo -n -s (set_color $color_cwd) (prompt_pwd) (set_color yellow) (git_branch_name | string replace -f -r '^.+$' ' ($0)') (set_color normal) "$suffix "
 end
