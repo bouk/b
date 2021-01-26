@@ -56,7 +56,8 @@ noremap H ^
 noremap L $
 noremap <leader>n :NERDTreeToggle<CR>
 noremap <leader>m :NERDTreeFind<CR>
-command! -bang BrowseProjects call fzf#run(fzf#wrap({'source':'command ls -d -1 ~/dotfiles ~/code/* ~/src/{bou.ke,k8s.io,github.com/*}/* 2>/dev/null', 'options':'--tiebreak=length,begin,end'}))
+let NERDTreeIgnore = ['\.pyc$']
+command! -bang BrowseProjects call fzf#run(fzf#wrap({'source':'command ls -d -1 ~/{b,dotfiles,code/*,src/{bou.ke,k8s.io,github.com/*}/*} 2>/dev/null', 'options':'--tiebreak=length,begin,end'}))
 noremap <leader>c :BrowseProjects<CR>
 let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls', 'serve'],
@@ -80,7 +81,6 @@ command! -nargs=* Note call Note(<f-args>)
 
 command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 noremap <c-p> :Files<CR>
-let NERDTreeIgnore = ['\.pyc$']
 noremap <C-J> <C-W>j
 noremap <C-K> <C-W>k
 noremap <C-L> <C-W>l

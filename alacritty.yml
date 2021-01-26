@@ -61,7 +61,7 @@ colors:
     magenta: '0xcc00ff'
     cyan:    '0x00ffff'
     white:   '0xFFFFFF'
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 100
 background_opacity: 1.0
@@ -76,7 +76,7 @@ hide_cursor_when_typing: false
 cursor_style: Block
 live_config_reload: true
 shell:
-  program: /nix/store/rv7jzimzxm36dm7k4ld9klfnvwzglbdz-tmux/bin/tmux
+  program: /opt/homebrew/bin/tmux
   args:
     - new-session
     - -A
@@ -92,7 +92,7 @@ key_bindings:
   - { key: Insert,   mods: Shift,   action: PasteSelection               }
   - { key: Key0,     mods: Control, action: ResetFontSize                }
   - { key: Equals,   mods: Control, action: IncreaseFontSize             }
-  - { key: Subtract, mods: Control, action: DecreaseFontSize             }
+  - { key: Minus, mods: Control, action: DecreaseFontSize             }
   - { key: Home,                    chars: "\x1bOH",   mode: AppCursor   }
   - { key: Home,                    chars: "\x1b[H",   mode: ~AppCursor  }
   - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }

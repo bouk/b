@@ -2,18 +2,9 @@
 
 let
   cfge = config.environment;
+  pkgs-unstable = import <nixpkgs-unstable> { };
 
-  babelfish = pkgs.buildGoModule rec {
-    pname = "babelfish";
-    version = "0.1.3";
-    src = pkgs.fetchFromGitHub {
-      owner = "bouk";
-      repo = "babelfish";
-      rev = "v${version}";
-      sha256 = "08i4y4fw60ynamr1jz8nkfkidxj06vcyhi1v4wxpl2macn6n4skk";
-    };
-    vendorSha256 = "0xjy50wciw329kq1nkd7hhaipcp4fy28hhk6cdq21qwid6g21gag";
-  };
+  babelfish = pkgs-unstable.babelfish;
 
   fishTranslate = name: input: pkgs.runCommand name { } "${babelfish}/bin/babelfish <${input} >$out";
   fishTranslateStr = name: input: fishTranslate name (pkgs.writeText name input);
@@ -34,47 +25,52 @@ let
       })
     ];
   });
-  mod = {
-    users.users."${username}" = {
-      home = "/Users/${username}";
-      description = "Bouke van der Bijl";
-      shell = world;
-    };
-    environment.shells = with pkgs; [ bashInteractive world zsh ];
-    system.stateVersion = 4;
-    system.defaults.dock.autohide = true;
-    services.nix-daemon.enable = false;
-    nix = {
-      useDaemon = false;
-      maxJobs = 4;
-      buildCores = 4;
-    };
-    nixpkgs.config.allowUnfree = true;
-    system.activationScripts = {
-      # Remove built-in shells and ssh config
-      preActivation.text = ''
-        echo "deleting /etc/shells and /etc/ssh/ssh_config" >&2
-        rm -f /etc/shells
-        rm -f /etc/ssh/ssh_config
-      '';
-      # Set the shell
-      postActivation.text = ''
-        dscl . -create '/Users/${username}' UserShell '${toShellPath world}'
-      '';
-    };
-    environment.pathsToLink = ["/"];
-    environment.darwinConfig = toString <darwin-config>;
-    environment.systemPackages = with pkgs; [
+in
+
+{
+  require = [ ./launchd.nix ];
+
+  users.users."${username}" = {
+    home = "/Users/${username}";
+    description = "Bouke van der Bijl";
+    shell = world;
+  };
+  services.nix-daemon.enable = false;
+  nix = {
+    useDaemon = false;
+    maxJobs = 4;
+    buildCores = 4;
+  };
+  nixpkgs.config.allowUnfree = true;
+  system.stateVersion = 4;
+  system.defaults.dock.autohide = true;
+  system.activationScripts = {
+    # Remove built-in shells and ssh config
+    preActivation.text = ''
+      echo "deleting /etc/shells and /etc/ssh/ssh_config" >&2
+      rm -f /etc/shells
+      rm -f /etc/ssh/ssh_config
+    '';
+    # Set the shell
+    postActivation.text = ''
+      dscl . -create '/Users/${username}' UserShell '${toShellPath world}'
+    '';
+  };
+  environment = {
+    shells = with pkgs; [ bashInteractive world zsh ];
+    pathsToLink = ["/"];
+    darwinConfig = toString <darwin-config>;
+    systemPackages = with pkgs; [
       bashInteractive
       cloudflared
       zsh
       world
     ];
-    environment.variables = with pkgs.darwin.apple_sdk.frameworks; {
+    variables = with pkgs.darwin.apple_sdk.frameworks; {
       EDITOR = "vim";
       SHELL = (toShellPath world);
     };
-    environment.etc = {
+    etc = {
       gitconfig.text = import ./gitconfig.nix;
       "ssh/ssh_config".source = ./ssh_config;
       "fish/nixos-env-preinit.fish".text = ''
@@ -118,5 +114,4 @@ let
       '';
     };
   };
-in
-  mod
+};
