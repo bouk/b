@@ -7,9 +7,9 @@ let
         Label = "ke.bou.${interface}.${ip}";
         UserName = "root";
         ProgramArguments = [
-          "/sbin/ifconfig",
-          interface,
-          "alias",
+          "/sbin/ifconfig"
+          interface
+          "alias"
           ip
         ];
       };

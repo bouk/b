@@ -2,11 +2,8 @@
 
 let
   cfge = config.environment;
-  pkgs-unstable = import <nixpkgs-unstable> { };
 
-  babelfish = pkgs-unstable.babelfish;
-
-  fishTranslate = name: input: pkgs.runCommand name { } "${babelfish}/bin/babelfish <${input} >$out";
+  fishTranslate = name: input: pkgs.runCommand name { } "${pkgs.babelfish}/bin/babelfish <${input} >$out";
   fishTranslateStr = name: input: fishTranslate name (pkgs.writeText name input);
   setEnvironment = fishTranslate "fish-set-env" config.system.build.setEnvironment;
   # TODO: contribute to NixPkgs
@@ -28,7 +25,7 @@ let
 in
 
 {
-  require = [ ./launchd.nix ];
+  #require = [ ./launchd.nix ];
 
   users.users."${username}" = {
     home = "/Users/${username}";
@@ -114,4 +111,4 @@ in
       '';
     };
   };
-};
+}

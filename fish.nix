@@ -7,6 +7,9 @@ function fish_user_key_bindings
 end
 
 set -p fish_function_path ${./fish/functions}
+set -gx TF_CLI_CONFIG_FILE ${pkgs.writeText "terraformrc" ''
+  plugin_cache_dir = "$HOME/.terraform.d/plugin-cache"
+''}
 set -gx GEMRC ${pkgs.writeText "gemrc" ''
   gem: --no-ri --no-rdoc --no-document
   search: --both
@@ -47,14 +50,15 @@ set -gx EDITOR vim
 set -gx EJSON_KEYDIR $HOME/.ejson_keys
 set -gx FZF_DEFAULT_COMMAND 'rg --files'
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
-set -gx VAULT_USERNAME bvanderbijl
 set -gx WGETRC ${./wgetrc}
 set -gx ZK_DIR "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Notities/Zettelkasten"
-set -gxp PATH $HOME/go/bin $HOME/.local/opt/flutter/bin $HOME/.pub-cache/bin
+set -gxp PATH $HOME/go/bin $HOME/.local/opt/flutter/bin $HOME/.pub-cache/bin /opt/homebrew/bin $HOME/.cargo/bin
 
 function list_after_cd --on-variable PWD
   ls
 end
+
+chruby_auto
 '';
 in
   pkgs.symlinkJoin {

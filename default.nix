@@ -2,23 +2,21 @@
 
 let
   pkgs = import <nixpkgs> { };
-  pkgs-unstable = import <nixpkgs-unstable> { };
 
   boukeBin = pkgs.runCommand "bouke-bin" { } ''
     mkdir $out
     ln -sf ${./bin} $out/bin
   '';
 
-  ruby = pkgs.ruby_2_7;
   paths = with pkgs; [
     (pkgs.callPackage ./tmux.nix { })
-    (pkgs.callPackage ./vim.nix { })
+    # (pkgs.callPackage ./vim.nix { }) ref: https://github.com/NixOS/nixpkgs/issues/129099
     autoconf
     automake
     awscli
     axel
     bat
-    bazel
+    # bazel
     boukeBin
     cargo
     cmake
@@ -32,8 +30,8 @@ let
     ffmpeg
     fzf
     gdb
-    gitAndTools.hub
-    google-cloud-sdk
+    #gitAndTools.hub
+    #google-cloud-sdk
     p7zip
     gnused
     gnutar
@@ -43,7 +41,6 @@ let
     # haskellPackages.cabal-install
     # haskellPackages.ghc
     htop
-    pkgs-unstable.hugo
     imagemagick
     jq
     kind
@@ -55,13 +52,13 @@ let
     nodePackages.node2nix
     nodePackages.typescript
     nodejs
-    pkgs-unstable.postgresql_13
+    postgresql_13
     protobuf
     python
     ripgrep
     rustc
     s3cmd
-    shellcheck
+    #shellcheck
     sqlite
     subversion
     terraform_0_13
@@ -72,7 +69,7 @@ let
     yarn
     youtube-dl
     zlib
-  ] ++ [ ruby ];
+  ];
   env = pkgs.buildEnv {
     name = "bouke";
     paths = paths;
@@ -90,7 +87,7 @@ let
     extraConfig = ''
       set -gxp CPATH ${pkgs.lib.makeSearchPathOutput "dev" "include" [ pkgs.libxml2 pkgs.libxslt ] }
       set -gxp LIBRARY_PATH ${pkgs.lib.makeLibraryPath [ pkgs.libxml2 pkgs.libxslt ] }
-      set -gxp PATH $HOME/.gem/ruby/${ruby.version.libDir}/bin ${pkgs.lib.makeBinPath [ env ] }
+      set -gxp PATH ${pkgs.lib.makeBinPath [ env ] }
       '';
   });
   package = boukeFish;
